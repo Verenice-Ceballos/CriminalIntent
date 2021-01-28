@@ -10,4 +10,5 @@
     <string name="crime_solved_label">
         Resuelto
     </string>
+    <string name="date_picker_title">Fecha del crimen:</string>
 </resources>
