@@ -16,13 +16,19 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.vereniceceballos.android.R;
+import com.vereniceceballos.android.activities.CrimeActivity;
 import com.vereniceceballos.android.model.Crime;
+import com.vereniceceballos.android.model.CrimeLab;
+
+import java.util.UUID;
 
 public class CrimeFragment extends Fragment {
     private Crime mCrime;
     private EditText mTitleField;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
+
+    private static final String ARG_CRIME_ID = "crime_id";
 
     @Nullable
     @Override
@@ -39,8 +45,10 @@ public class CrimeFragment extends Fragment {
     }
 
     private void startup() {
+        mTitleField.setText(mCrime.getTitle());
         mDateButton.setText(mCrime.getDate().toString());
         mDateButton.setEnabled(false);
+        mSolvedCheckBox.setChecked(mCrime.isSolved());
 
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -66,6 +74,17 @@ public class CrimeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mCrime = new Crime();
+        Bundle args = getArguments();
+        UUID crimeId = (UUID) args.getSerializable(ARG_CRIME_ID);
+        mCrime = CrimeLab.getInstance(getActivity()).getCrime(crimeId);
+    }
+
+    public static CrimeFragment getInstance(UUID crimeId)
+    {
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_CRIME_ID, crimeId);
+        CrimeFragment fragment = new CrimeFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 }
