@@ -11,4 +11,10 @@
         Resuelto
     </string>
     <string name="date_picker_title">Fecha del crimen:</string>
+
+    <string name="new_crime">Nuevo crimen</string>
+    <string name="show_subtitle">Mostrar subtítulo</string>
+    <string name="hide_subtitle">Ocultar subtítulo</string>
+    <string name="subtitle_format">%1$d crímenes</string>
+
 </resources>
